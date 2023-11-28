@@ -10,4 +10,6 @@ COPY . /app
 
 RUN chmod -R 777 /app
 
+ENV TZ="Asia/Jakarta"
+
 ENTRYPOINT ["./gunicorn.sh"]
