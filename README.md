@@ -38,13 +38,13 @@ To begin the training module, follow these steps:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-repository-url.git
+   git clone https://github.com/ichsansan/COPT-Training-Module.git
    ```
 
 2. Navigate to the root directory:
 
    ```bash
-   cd combustion-ml-training
+   cd COPT-Training-Module
    ```
 
 3. Access each submodule's README file for detailed instructions:

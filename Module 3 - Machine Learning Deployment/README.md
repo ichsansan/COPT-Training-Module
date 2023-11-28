@@ -10,8 +10,8 @@ Welcome to the "Machine Learning Deployment and Integration on Linux Servers" su
 2. **Containerization with Docker:**
    - Dive into the world of containerization with Docker to package your machine learning application and its dependencies.
    - Understand the benefits of containerization for deployment, scalability, and reproducibility.
-3. **Integration with Flask and Gunicorn:**
-   - Explore the integration of your machine learning model with Flask, a web framework, and Gunicorn, a WSGI server, for robust and scalable web service deployment.
+3. **Integration with Flask:**
+   - Explore the integration of your machine learning model with Flask, a web framework, for robust and scalable web service deployment.
    - Learn how to expose your machine learning model as a RESTful API.
 
 ## Prerequisites:

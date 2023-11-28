@@ -1,0 +1,4 @@
+*.pyc
+*.pyd
+*_env/*
+*_env
