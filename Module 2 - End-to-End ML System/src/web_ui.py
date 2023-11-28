@@ -38,7 +38,8 @@ def main_page():
     results = requests.post(f"{DT_API}", json=sample)
     
     results = json.loads(results.text)
-    st.info(f'{results["prediction"]}')
+    # st.info(f'{results["prediction"]}')
+    st.image(f'../img/{results["prediction"]}.png')
 
     reset = st.button('Hapus')	
     if reset:      
