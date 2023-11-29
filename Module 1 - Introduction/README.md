@@ -2,23 +2,13 @@
 
 Welcome to the "Introduction to Building a Combustion Optimization ML System" submodule. In this section, we'll provide you with an overview of the technological stack we'll be using and a brief description of the module. Additionally, to equip you for the upcoming lessons, we'll delve into advanced Python programming concepts that will serve as a foundation for building a sophisticated Combustion Optimization ML model.
 
-## Technological Stack:
+## Topics
 
-### 1. Python Programming Language:
+- Brief of Combustion Optimization
 
-- Python will be the primary language for implementing machine learning algorithms, handling data, and building the overall system.
+- Providing Details on The Required Technological Stack
 
-### 2. Jupyter Notebooks:
-
-- Jupyter Notebooks will be utilized for interactive and collaborative coding, allowing you to experiment with code snippets and visualize data.
-
-### 3. NumPy and Pandas:
-
-- NumPy and Pandas will play a crucial role in data manipulation, providing efficient data structures and functions for handling datasets.
-
-### 4. Scikit-Learn:
-
-- Scikit-Learn, a machine learning library, will be used for implementing and evaluating machine learning models.
+- Theoretical Foundation of Programming Essential (Python Advanced)
 
 ## Module Description:
 
@@ -28,14 +18,16 @@ This module serves as the foundation for our journey into building a sophisticat
 
 Before diving into the main content, ensure you are comfortable with the following advanced Python programming concepts:
 
-1. **Advanced Data Structures:**
-   - Lists, Sets, Dictionaries, and understanding their use cases.
-2. **Functional Programming:**
-   - Knowledge of functions as first-class citizens, lambda functions, and map/reduce/filter operations.
-3. **Object-Oriented Programming (OOP):**
-   - Understanding of classes, objects, inheritance, and polymorphism.
-4. **Exception Handling:**
-   - Proficiency in handling exceptions and errors to write robust code.
+1. **Python Functions:**
+   - Mastery of defining and using functions, understanding function arguments, return values, and scoping.
+2. **Apply Function, Map, & Lambda:**
+   - Learn how to use the `apply` function, `map` function, and lambda expressions to efficiently manipulate data in Pandas.
+3. **Pandas Dataframe (Merge, Concat):**
+   - Explore techniques for combining DataFrames in Pandas, including merging and concatenating, to integrate and analyze diverse datasets.
+4. **Groupby & Pivot:**
+   - Understand the power of grouping and pivoting in Pandas for aggregating and reshaping data, facilitating advanced analysis.
+5. **Python Class:**
+   - Gain proficiency in object-oriented programming with Python classes. Understand the principles of encapsulation, inheritance, and polymorphism.
 
 ## Getting Started:
 

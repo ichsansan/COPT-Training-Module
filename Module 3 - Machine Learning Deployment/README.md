@@ -45,19 +45,33 @@ Before starting this submodule, ensure you have the following prerequisites:
 
 3. **Explore the README File:**
 
-   - Open the README file for this submodule (`module3_deployment/README.md`) for detailed instructions on connecting to a database, containerizing your application with Docker, and deploying the machine learning model on a Linux server.
+   - Open the README file for this submodule (`Module 3 - Machine Learning Deployment/README.md`) for detailed instructions on connecting to a database, containerizing your application with Docker, and deploying the machine learning model on a Linux server.
 
 ## Key Topics Covered:
-
-- **Database Connection:**
-  - Establishing a connection to a database using Python.
-  - Performing basic CRUD (Create, Read, Update, Delete) operations.
-- **Containerization with Docker:**
-  - Creating a Dockerfile for your machine learning application.
-  - Building and running Docker containers locally.
-- **Integration with Flask and Gunicorn:**
-  - Setting up a Flask application for serving machine learning predictions.
-  - Deploying the Flask application using Gunicorn.
+  
+- **Connecting to the Database**
+  
+  - Establishing a connection to the database to integrate with real-time data.
+  
+- **Integration with Flask**
+  
+  - Incorporating your machine learning model with Flask.
+  
+  - Learn how to expose your ML model as a RESTful API.
+  
+  - Understanding the process of exposing your machine learning model as a RESTful API.
+  
+- **Containerization with Docker**
+  
+  - Utilizing Docker for containerization.
+  
+  - Benefits of Containerization with Docker
+  
+  - Exploring the advantages of containerization using Docker.
+  
+  - Containerization Example on the Linux Platform
+  
+  - Demonstrating containerization using Docker on the Linux platform.
 
 ## Additional Resources:
 
