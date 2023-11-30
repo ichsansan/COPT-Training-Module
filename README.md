@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the Combustion Optimization with Machine Learning Training Module! This module is designed to provide a comprehensive guide on building, developing, deploying, and problem analyzing for a Combustion Optimization Machine Learning (ML) system. By the end of this training, you will have the knowledge and skills to create an efficient and effective ML system for combustion optimization.
+Welcome to the Combustion Optimization with Machine Learning Training Module! This module is designed to provide a comprehensive guide on building, developing, deploying, and problem analyzing for a Combustion Optimization Machine Learning (ML) system. By the end of this training, you will have the knowledge and skills to create an end-to-end ML system.
 
 ## Submodules
 
