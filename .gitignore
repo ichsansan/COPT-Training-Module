@@ -2,3 +2,4 @@
 *.pyd
 *_env/*
 *_env
+*_pycache_*
