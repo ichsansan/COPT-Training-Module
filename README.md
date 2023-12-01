@@ -22,6 +22,10 @@ Once the ML model is developed, the next step is deploying it for real-world use
 
 In this submodule, participants will learn how to identify and troubleshoot issues that may arise in a combustion optimization ML system. Topics include performance monitoring, error handling, and debugging. Real-world scenarios and case studies will be discussed to provide practical insights into problem-solving.
 
+### 6. Combustion Service Integration with React and Deployment
+
+For this submodule, participants will learn how to integrate the combustion web service with React, utilizing the axios library for seamless integration with any web services. Finally, we will learn how to deploy the React app using Docker and Nginx.
+
 ## Prerequisites
 
 Before starting this training module, participants are expected to have:
@@ -53,6 +57,7 @@ To begin the training module, follow these steps:
    - `Module 2 - End-to-End ML System/README.md`
    - `Module 3 - Machine Learning Deployment/README.md`
    - `Module 4 - Problem Analysis/README.md`
+   - `Module 6 - Module 6 - Frontend Integration with React and Deployment/README.md`
 
 ## Additional Resources
 
