@@ -1,0 +1,8 @@
+.MuiTableCell-stickyHeader {
+  background-color: #1E2125;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%)
+}
+/*# sourceMappingURL=index.css.map */

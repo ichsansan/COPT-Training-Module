@@ -1,0 +1,113 @@
+@keyframes blink {
+  0%,
+  to {
+    fill: #dbe2ef;
+  }
+  60% {
+    fill: #2d4;
+  }
+}
+.copt-schema {
+  stroke: #fff;
+  fill: transparent;
+  stroke-width: 6;
+  stroke-linecap: square;
+  stroke-linejoin: initial;
+}
+.object .path1 {
+  stroke: #dbe2ef;
+  fill: #dbe2ef;
+  stroke-width: 0;
+}
+.fire-1 circle,
+.object .path3 {
+  fill: #df3232;
+  stroke-width: 0;
+}
+.head text,
+.object .path4 {
+  fill: #1e2125;
+  stroke-width: 0;
+}
+.hot-air path {
+  stroke: #ee725385;
+  stroke-width: 10;
+}
+.coal path,
+.cold-air path {
+  stroke: #70b3ff85;
+  stroke-width: 10;
+}
+.coal path {
+  stroke: #2bb82b85;
+}
+text {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.particle {
+  fill: #fffa;
+  stroke: #fffa;
+}
+.head-bg {
+  fill: #4799bf;
+  stroke: transparent;
+}
+.head-bg:hover {
+  fill: #5092b1;
+}
+.head text {
+  fill: #fff;
+  font-size: 18pt;
+  font-weight: 700;
+}
+.fan * {
+  stroke: #292931;
+  fill: #292931;
+  stroke-width: 0;
+}
+.drum {
+  stroke: #1e2125;
+  fill: #fff;
+  stroke-width: 4;
+}
+.drum-level {
+  fill: #2bb82b;
+  stroke-width: 0;
+}
+.drum-level-outer {
+  stroke: #1e212522;
+  stroke-width: 3;
+}
+.text-primary,
+.text-secondary {
+  stroke-width: 0;
+  fill: #333854;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.text-secondary {
+  fill: #cdcddd;
+}
+.fs-normal {
+  font-size: 18pt;
+}
+.fs-large {
+  font-size: 20pt;
+}
+.fs-large,
+.fw-bold {
+  font-weight: bolder;
+}
+.fire-2 circle {
+  fill: #f47e60;
+  stroke-width: 0;
+}
+.fire-3 circle {
+  fill: #f8b26a;
+  stroke-width: 0;
+}
+.tag-text:hover {
+  fill: #3086ae;
+}
+.text-secondary.tag-text:hover {
+  fill: #16acf2;
+}
