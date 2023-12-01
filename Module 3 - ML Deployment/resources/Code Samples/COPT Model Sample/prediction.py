@@ -316,33 +316,7 @@ class MainFlow:
         self.time_logs['Fetch Sensor Data'] = f'{(end_time - start_time)} secs'
         
     def pre_calculation(self):
-        burner_tilt_labels = [f for f in self.realtime_df if 'Burner' in f]
-        average_burner_tilt = self.realtime_df[burner_tilt_labels].mean(axis=1)
-        for f in burner_tilt_labels:
-            if self.realtime_df[f].isna()[-1]:
-                self.realtime_df[f] = average_burner_tilt
-        if self.unit == 'PCT1':
-            self.realtime_df['Total Secondary Air Flow Sides Sum'] = self.original_realtime_df[['OPC.AW1002.1E_AIRFLOW.FURA1AIN.PNT','OPC.AW1002.1E_AIRFLOW.FURA2AIN.PNT', 'OPC.AW1002.1E_AIRFLOW.FURB1AIN.PNT','OPC.AW1002.1E_AIRFLOW.FURB2AIN.PNT']].mean(axis=1)
-        elif self.unit == 'PCT2':
-            self.realtime_df = self.realtime_df.bfill()
-            self.realtime_df['Total Secondary Air Flow Sides Sum'] = self.original_realtime_df[['OPC.AW2002.2E_AIRFLOW.FURA1AIN.PNT','OPC.AW2002.2E_AIRFLOW.FURA2AIN.PNT', 'OPC.AW2002.2E_AIRFLOW.FURB1AIN.PNT','OPC.AW2002.2E_AIRFLOW.FURB2AIN.PNT']].mean(axis=1)
-            if self.realtime_df['Mill C Outlet Temperature'].isna().max(): self.realtime_df['Mill C Outlet Temperature'] = self.original_realtime_df[['OPC.AW2002.2HAI.AI090107.PNT','OPC.AW2002.2EAI.AI050503.PNT']].mean(axis=1)
-            ovas = ['Over-Fire-Air Dampers 1','Over-Fire-Air Dampers 2','Over-Fire-Air Dampers 3','Over-Fire-Air Dampers 4']
-            for ova in ovas:
-                if self.realtime_df[ova].isna().max(): self.realtime_df[ova] = self.realtime_df[ovas].mean(axis=1)
-
-            for oxy_tag in ['OPC.AW2002.2E_OXY.SIGSEL1.OUT','OPC.AW2002.2EAI.AI051707.PNT','OPC.AW2002.2EAI.AI052105.PNT','OPC.AW2002.2EAI.AI052304.PNT','OPC.AW2002.2EAI.AI052401.PNT']:
-                if oxy_tag in self.O2_callibrations_.keys():
-                    coef = 1; intercept = 0
-                    if 'coef' in self.O2_callibrations_[oxy_tag].keys(): coef = self.O2_callibrations_[oxy_tag]['coef']
-                    if 'intercept' in self.O2_callibrations_[oxy_tag].keys(): intercept = self.O2_callibrations_[oxy_tag]['intercept']
-
-                    self.original_realtime_df[oxy_tag] = (self.original_realtime_df[oxy_tag] * coef) + intercept
-            
-            for oxy in self.realtime_df.columns[self.realtime_df.columns.str.contains("Excess")]:
-                # self.realtime_df[oxy] = self.original_realtime_df['OPC.AW2002.2E_OXY.SIGSEL1.OUT']
-                self.realtime_df[oxy] = self.original_realtime_df[['OPC.AW2002.2EAI.AI052105.PNT','OPC.AW2002.2EAI.AI052401.PNT']].mean(axis=1)
-        elif self.unit == "BLK1":
+        if self.unit == "BLK1":
             self.realtime_df["Windbox-to-Furnace Diff. Press A"] = self.realtime_df["Windbox-to-Furnace Diff. Press B"]
             self.excess_oxygen_target_limit = [4.9, 5.9]     # Force to 4.9-5.9
         elif self.unit == "BLK2":
@@ -486,106 +460,7 @@ class MainFlow:
                 if self.mv_recomendations_df[config.EXCESS_OXYGEN_SOKET_2].iloc[0] < self.excess_oxygen_target_limit[0] \
                     and self.realtime_df[config.EXCESS_OXYGEN_SOKET_2].iloc[-1] < self.excess_oxygen_target_limit[0]:
                     self.mv_recomendations_df = None
-            return
-        else:
-            self.current_dataset_tag_contract.tag_groups_map["RECOMMENDATION_MV_VARIABLES"] = {
-                'Burner Tilt Position 1L',
-                'Burner Tilt Position 1U',
-                'Burner Tilt Position 2L',
-                'Burner Tilt Position 2U',
-                'Burner Tilt Position 3L',
-                'Burner Tilt Position 3U',
-                'Burner Tilt Position 4L',
-                'Burner Tilt Position 4U',
-                'Total Secondary Air Flow',
-                'Excess Oxygen Sensor',
-                'All Wind',
-                'Mill A Outlet Temperature',
-                'Mill B Outlet Temperature',
-                'Mill C Outlet Temperature',
-                'Mill D Outlet Temperature',
-                'Mill E Outlet Temperature',
-            }
-
-        if self.mv_recomendations_df is None: return
-        if len(self.mv_recomendations_df) == 0: return
-
-        # Adding All Wind, renaming Burner Tilts
-        self.realtime_df['All Wind'] = self.realtime_df[['Total Primary Air Flow','FDF Fan Air Flow Calc']].sum(axis=1)
-        for c in self.realtime_df.columns:
-            if c.startswith('Burner Tilt') and c.endswith('R'):
-                c_r = c[:-1] + 'U'
-                self.realtime_df = self.realtime_df.rename(columns={c: c_r})
-                self.mv_recomendations_df = self.mv_recomendations_df.rename(columns={c: c_r})
-
-        pa_flow = self.realtime_df['Total Primary Air Flow'].iloc[-1]
-        fd_flow = self.realtime_df['FDF Fan Air Flow Calc'].iloc[-1]
-        fd_flow_bias = self.mv_recomendations_df['FDF Fan Air Flow Calc'].iloc[-1]
-        all_wind_bias = ((pa_flow + fd_flow) / fd_flow) * fd_flow_bias
-
-        # Renaming FDF Fan to Total Sec., adding All Wind bias
-        self.realtime_df['Total Secondary Air Flow'] = self.realtime_df['FDF Fan Air Flow Calc']
-        self.mv_recomendations_df = self.mv_recomendations_df.rename(columns={'FDF Fan Air Flow Calc':'Total Secondary Air Flow'})
-        self.mv_recomendations_df = self.mv_recomendations_df.drop(columns=['Total Secondary Air Flow Sides Sum'])
-        self.mv_recomendations_df['All Wind'] = all_wind_bias
-        for key,val in self.predicted_excess_oxy.items():
-            if key not in self.realtime_df.columns.to_list(): continue
-            current_val = self.realtime_df[key].iloc[-1]
-            self.mv_recomendations_df[key] = float(val)
-
-        # Callibrate Back
-        for oxy_tag in ['OPC.AW2002.2E_OXY.SIGSEL1.OUT','OPC.AW2002.2EAI.AI051707.PNT','OPC.AW2002.2EAI.AI052105.PNT','OPC.AW2002.2EAI.AI052304.PNT','OPC.AW2002.2EAI.AI052401.PNT']:
-            if oxy_tag in self.O2_callibrations_.keys():
-                coef = 1; intercept = 0
-                if 'coef' in self.O2_callibrations_[oxy_tag].keys(): coef = self.O2_callibrations_[oxy_tag]['coef']
-                if 'intercept' in self.O2_callibrations_[oxy_tag].keys(): intercept = self.O2_callibrations_[oxy_tag]['intercept']
-
-                self.original_realtime_df[oxy_tag] = (self.original_realtime_df[oxy_tag] - intercept) / coef
-        
-        o2_realtime = self.realtime_df.iloc[-1][config.EXCESS_OXYGEN_SOKET_2]
-        o2_recom = self.mv_recomendations_df.iloc[-1][config.EXCESS_OXYGEN_SOKET_2]
-        o2_bias_callibrated = o2_recom - o2_realtime
-
-        for oxy in self.realtime_df.columns[self.realtime_df.columns.str.contains("Excess")]:
-            # self.realtime_df[oxy] = self.original_realtime_df['OPC.AW2002.2E_OXY.SIGSEL1.OUT']
-            self.realtime_df[oxy] = self.original_realtime_df[['OPC.AW2002.2EAI.AI052105.PNT','OPC.AW2002.2EAI.AI052401.PNT']].mean(axis=1)
-            
-        self.mv_recomendations_df[config.EXCESS_OXYGEN_SOKET_2] = self.realtime_df.iloc[-1][config.EXCESS_OXYGEN_SOKET_2] + o2_bias_callibrated
-
-        ############## MOT handler ##############
-        realtime_calc_df = self.realtime_df.copy()
-
-        # Giving Coal HHV estimate values
-        hhv_est = (
-            self.realtime_df['Generator Gross Load'] * 6.7721145661919 + (self.realtime_df['Coal Flow'] * 1) * -
-            10.903148890184394) + 4284.626263834663  # Scale back Coal Flow
-        realtime_calc_df['Coal HHV Estimate'] = hhv_est
-        self.realtime_df['Coal HHV'] = hhv_est
-
-        # Giving Total Moisture estimate
-        tm_est = -0.0116272626573054 * hhv_est + 83.1161457080681
-        realtime_calc_df['Total Moisture'] = tm_est
-        current_coal_moisture = realtime_calc_df['Total Moisture'].iloc[-1]
-        logging(f"Calculated Coal Moisture: {current_coal_moisture} %")
-
-        current_mill_inlet_temp = {}
-        current_mill_outlet_temp = {}
-        for c in np.unique(self.mill_inlet_temp_config['description']):
-            mit_per_c_df = self.mill_inlet_temp_config[self.mill_inlet_temp_config['description'] == c]
-            current_mill_inlet_temp[c] = np.average([float(f) for f in mit_per_c_df['value'] if float(f) > 150])
-
-            try:
-                x_in = pd.DataFrame([[current_coal_moisture, current_mill_inlet_temp[c]]], columns=['COAL_MOISTURE','MILL_INLET_TEMP'])
-                current_mill_outlet_temp[c.replace('Inlet', 'Outlet')] = float(self.mot_model.predict(x_in))
-            except ValueError:
-                current_mill_outlet_temp[c.replace('Inlet', 'Outlet')] = 0.0
-
-        self.mill_outlet_temperature_suggestion = current_mill_outlet_temp
-
-        for k,v in self.mill_outlet_temperature_suggestion.items():
-            current_value = self.realtime_df[k].iloc[-1]
-            recommendation_value = self.mill_outlet_temperature_suggestion[k]
-            self.mv_recomendations_df[k] = recommendation_value # - current_value
+        return
 
     def save_to_db(self):
         # print('################# SAVE TO DATABASE #################', flush=True)
