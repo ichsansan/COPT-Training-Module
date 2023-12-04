@@ -57,7 +57,8 @@ To begin the training module, follow these steps:
    - `Module 2 - End-to-End ML System/README.md`
    - `Module 3 - Machine Learning Deployment/README.md`
    - `Module 4 - Problem Analysis/README.md`
-   - `Module 6 - Module 6 - Frontend Integration with React and Deployment/README.md`
+   - `Module 5 - Service COPT`
+   - `Module 6 - Combustion Service Integration with React and Deployment/README.md`
 
 ## Additional Resources
 
